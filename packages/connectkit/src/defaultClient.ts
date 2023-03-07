@@ -7,6 +7,9 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
+import { BitkeepConnector } from './wallets/connectors/BitKeep';
+
+
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { infuraProvider } from 'wagmi/providers/infura';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
@@ -79,6 +82,14 @@ const getDefaultConnectors = ({
    */
 
   return [
+    new BitkeepConnector({
+      chains,
+      options: {
+        shimDisconnect: true,
+        shimChainChangedDisconnect: true,
+        UNSTABLE_shimOnConnectSelectAccount: true,
+      },
+    }),
     new MetaMaskConnector({
       chains,
       options: {
